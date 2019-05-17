@@ -4,6 +4,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:ct_razorpay_flutter/ct_razorpay_flutter.dart';
 
+const MERCHANT_KEY = '';
+const MERCHANT_NAME = '';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -48,7 +51,27 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: RaisedButton(
+            onPressed: () {
+              CtRazorpayFlutter.checkout(
+                      merchantKey: MERCHANT_KEY,
+                      merchantName: MERCHANT_NAME,
+                      amountInPaise: '23000')
+                  .then(print);
+              CtRazorpayFlutter.checkoutWithOrdersAPI(
+                      merchantKey: MERCHANT_KEY,
+                      merchantName: MERCHANT_NAME,
+                      amountInPaise: '23000',
+                      orderId: '')
+                  .then(print);
+              CtRazorpayFlutter.checkoutWithMap({}).then(print);
+            },
+            child: Container(
+              color: Colors.grey[200],
+              padding: EdgeInsets.all(10.0),
+              child: Text('Running on: $_platformVersion\n'),
+            ),
+          ),
         ),
       ),
     );
